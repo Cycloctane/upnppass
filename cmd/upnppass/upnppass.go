@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"net"
 	"net/url"
 	"os"
@@ -13,11 +14,18 @@ import (
 
 const defaultMaxAgeSec = 1800
 
+var version = "dev"
+
 func main() {
 	locationStr := flag.String("u", "", "URL of upnp device's root desc xml")
 	nicStr := flag.String("i", "", "Network interface for multicast")
 	maxAge := flag.Int("t", defaultMaxAgeSec, "Max age of upnp notify in seconds")
+	showVersion := flag.Bool("v", false, "Show version")
 	flag.Parse()
+	if *showVersion {
+		fmt.Println(version)
+		return
+	}
 	if *maxAge < defaultMaxAgeSec {
 		panic("Max-age should be greater than 1800s")
 	}

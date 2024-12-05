@@ -9,9 +9,17 @@ import (
 
 const defaultSearchSec = 1
 
+var version = "dev"
+
 func main() {
 	searchSec := flag.Uint("t", defaultSearchSec, "Search duration (seconds)")
+	showVersion := flag.Bool("v", false, "Show version")
 	flag.Parse()
+	if *showVersion {
+		fmt.Println(version)
+		return
+	}
+
 	devices, err := upnp.SearchDevice(int(*searchSec))
 	if err != nil {
 		panic(err)
