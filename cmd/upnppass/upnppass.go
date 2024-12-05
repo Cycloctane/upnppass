@@ -11,14 +11,14 @@ import (
 	"github.com/Cycloctane/upnppass/internal/upnp"
 )
 
-const defaultMaxAgeSeconds = 1800
+const defaultMaxAgeSec = 1800
 
 func main() {
 	locationStr := flag.String("u", "", "URL of upnp device's root desc xml")
 	nicStr := flag.String("i", "", "Network interface for multicast")
-	maxAge := flag.Int("t", defaultMaxAgeSeconds, "Max age of upnp notify in seconds")
+	maxAge := flag.Int("t", defaultMaxAgeSec, "Max age of upnp notify in seconds")
 	flag.Parse()
-	if *maxAge < defaultMaxAgeSeconds {
+	if *maxAge < defaultMaxAgeSec {
 		panic("Max-age should be greater than 1800s")
 	}
 	location, err := url.Parse(*locationStr)
@@ -38,12 +38,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	ads, err := upnp.SetupAdvertise(location.String(), desc, defaultMaxAgeSeconds)
+	ads, err := upnp.SetupAdvertise(location.String(), desc, defaultMaxAgeSec)
 	if err != nil {
 		panic(err)
 	}
 
-	repeat := time.Tick(time.Duration(defaultMaxAgeSeconds) * time.Second)
+	repeat := time.Tick(time.Duration(defaultMaxAgeSec) * time.Second)
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 

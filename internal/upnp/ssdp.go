@@ -97,3 +97,11 @@ func SetupAdvertise(location string, desc *RootDesc, maxAge int) (*UpnpAds, erro
 
 	return ads, nil
 }
+
+func SearchDevice(waitSec int) ([]ssdp.Service, error) {
+	service, err := ssdp.Search("upnp:rootdevice", waitSec, "")
+	if err != nil {
+		return nil, err
+	}
+	return service, nil
+}

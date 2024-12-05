@@ -12,9 +12,11 @@ type RootDesc struct {
 		Minor int `xml:"minor"`
 	} `xml:"specVersion"`
 	Device struct {
-		UDN         string
-		DeviceType  string `xml:"deviceType"`
-		ServiceList []struct {
+		UDN          string
+		DeviceType   string `xml:"deviceType"`
+		FriendlyName string `xml:"friendlyName"`
+		ModelName    string `xml:"modelName"`
+		ServiceList  []struct {
 			ServiceType string `xml:"serviceType"`
 		} `xml:"serviceList>service"`
 	} `xml:"device"`

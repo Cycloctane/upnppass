@@ -4,13 +4,15 @@ UPnP Pass: Pass UPnP/DLNA discovery messages through subnet/vpn/port-forwarding.
 
 This program acts like a [SSDP Server Proxy](https://datatracker.ietf.org/doc/html/draft-cai-ssdp-v1-01#section-7.2) for UPnP devices. It retrieves description from UPnP device and announces SSDP messages in local network to make the target UPnP device visible in local subnet.
 
-It only advertises for the target. Location in SSDP packet remains the same as UPnP device's orginal address. UPnP clients (control points) should be able to connect to the target UPnP device directly.
+It only sends advertisements for the target. Location in advertisements remains the same as UPnP device's orginal address. UPnP clients (control points) should be able to connect to the target UPnP device directly.
 
 It can also be used for accessing remote UPnP/DLNA service through port forwarding or vpn that do not route multicast traffic (like ipsec and openvpn).
 
 Currently supports UPnP root devices and services. Proxy for embedded devices is not implemented yet.
 
 ## Usage
+
+### upnpPass
 
 ```bash
 ./upnppass -i $interface -u $description_url -t 1800
@@ -24,4 +26,12 @@ For example, to make a minidlna server in remote network visible to localhost af
 
 ```bash
 ./upnppass -i loop -u http://127.0.0.1:8200/rootDesc.xml -t 1800
+```
+
+### upnpFind
+
+upnpFind is a helper program for searching available upnp root devices in local network. It is useful for getting root device description URL that can be used in upnpPass `-u`.
+
+```bash
+./upnpfind
 ```
